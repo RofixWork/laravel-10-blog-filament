@@ -27,8 +27,8 @@ class Post extends Model
         return $this->belongsToMany(Category::class);
     }
 //    handle body
-    public function shortBody() : string {
-        return Str::words(strip_tags($this->body), 30);
+    public function shortBody($words = 30) : string {
+        return Str::words(strip_tags($this->body), $words);
     }
 //    handle date
     public function getFormattedDate() : string {
@@ -41,5 +41,14 @@ class Post extends Model
             return $this->thumbnail;
         }
         return asset("storage/{$this->thumbnail}");
+    }
+
+    //calc read time
+    public function humanReadTime() : string
+    {
+        $words = Str::wordCount(strip_tags($this->body));
+        $minutes = ceil($words / 200);
+
+        return "{$minutes} min, {$words} words";
     }
 }

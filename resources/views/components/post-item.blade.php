@@ -1,7 +1,7 @@
 @props(['post'])
 <article class="flex flex-col shadow my-4 w-full">
     <!-- Article Image -->
-    <a href="{{route("posts.show", $post->slug)}}" class="hover:opacity-75 h-auto md:h-[200px]">
+    <a href="{{route("posts.show", $post->slug)}}" class="hover:opacity-75 h-auto">
         <img src="{{{$post->getThumbnail()}}}" alt="" class="w-full object-cover">
     </a>
     <div class="bg-white flex flex-col justify-start p-6">
@@ -13,9 +13,9 @@
 
         <a href="{{route("posts.show", $post->slug)}}" class="text-3xl font-bold hover:text-gray-700 pb-4 capitalize">{{$post->title}}</a>
         <p href="{{route("posts.show", $post->slug)}}" class="text-sm pb-3">
-            By <a href="#" class="font-semibold hover:text-gray-800">{{$post->user->name}}</a>, Published on {{$post->getFormattedDate()}}
+            By <a href="#" class="font-semibold hover:text-gray-800">{{$post->user->name}}</a>, Published on {{$post->getFormattedDate()}} | {{$post->humanReadTime()}}
         </p>
         <a href="{{route("posts.show", $post->slug)}}" class="pb-6">{{$post->shortBody()}}..</a>
-        <a href="{{route("posts.show", $post->slug)}}" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a>
+        <a href="{{route("posts.show", $post->slug)}}" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i> </a>
     </div>
 </article>

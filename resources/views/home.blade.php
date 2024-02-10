@@ -4,18 +4,48 @@
      */
 @endphp
 <x-layouts.app :meta_title="$category->title ?? 'Home'" meta_description="home page">
-    <!-- Posts Section -->
-    <section class="w-full md:w-2/3 flex flex-col items-center px-3">
-{{--        render posts--}}
-        @foreach($posts as $post)
-            {{--        post--}}
-            <x-post-item :post="$post" />
-        @endforeach
+    <section class="container">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="col-span-2">
+                <h2  class="text-lg md:text-2xl border-b border-blue-500 inline-block text-blue-500 font-semibold">Latest Posts</h2>
+                <x-post-item :post="$latestPost" />
+            </div>
+            <div>
+                <h2 class="text-lg md:text-2xl border-b border-blue-500 inline-block text-blue-500 font-semibold mb-3">Popular Posts</h2>
+                @foreach($popularPosts as $post)
+                    <article class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                        <div>
+                            <img src="{{{$post->getThumbnail()}}}" alt="" class="w-full object-cover">
+                        </div>
+                        <div class="col-span-2">
+                            <h2 class="text-lg font-semibold capitalize">{{$post->title}}</h2>
+                            <p class="text-sm">{{$post->shortBody(20)}}...</p>
+                            <a href="{{route("posts.show", $post->slug)}}" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i> </a>
 
-        <!-- Pagination -->
-        {{$posts->onEachSide(1)->links()}}
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </div>
+        <div>
+            <h2 class="text-lg md:text-2xl border-b border-blue-500 inline-block text-blue-500 font-semibold">Recomended Posts</h2>
+            <div class="grid grid-cols-3 gap-3">
+                @foreach($recommendedPosts as $post)
+                    <x-post-item :post="$post" />
+                @endforeach
+            </div>
+        </div>
+        <div>
+            <h2 class="text-lg md:text-2xl border-b border-blue-500 inline-block text-blue-500 font-semibold">Recent Categories</h2>
+            @foreach($recentCategories as $category)
+                <a href="{{route("posts.by-category", $category->slug)}}" style="font-size: 30px;" class="block uppercase border border-gray-700 text-center text-gray-700 my-3 hover:text-gray-900 transition-colors">{{$category->title}}</a>
+                <div class="grid grid-cols-3 gap-3">
+                    @foreach($category->posts as $post)
+                        <x-post-item :post="$post" />
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
     </section>
 
-    <!-- Sidebar Section -->
-    <x-sidebar />
 </x-layouts.app>
