@@ -1,6 +1,6 @@
 <x-layouts.app :meta_title="$post->meta_title" :meta_description="$post->meta_description">
 {{--    post section--}}
-    <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+    <section class="w-full md:w-2/3 flex flex-col px-3">
         <article class="flex flex-col shadow my-4 w-full">
             <!-- Article Image -->
             <a href="#" class="hover:opacity-75">
@@ -42,6 +42,7 @@
                 @endunless
             </div>
         </div>
+        <livewire:comments :post="$post" />
     </section>
     <!-- Sidebar Section -->
     <x-sidebar />

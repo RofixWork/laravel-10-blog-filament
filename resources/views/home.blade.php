@@ -38,7 +38,12 @@
         <div>
             <h2 class="text-lg md:text-2xl border-b border-blue-500 inline-block text-blue-500 font-semibold">Recent Categories</h2>
             @foreach($recentCategories as $category)
-                <a href="{{route("posts.by-category", $category->slug)}}" style="font-size: 30px;" class="block uppercase border border-gray-700 text-center text-gray-700 my-3 hover:text-gray-900 transition-colors">{{$category->title}}</a>
+                <a href="{{route("posts.by-category", $category->slug)}}" style="font-size: 30px;" class="block uppercase  text-blue-700 my-3 hover:text-gray-900  transition-colors flex items-center gap-3">
+                    <span>{{$category->title}}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
                 <div class="grid grid-cols-3 gap-3">
                     @foreach($category->posts as $post)
                         <x-post-item :post="$post" />
